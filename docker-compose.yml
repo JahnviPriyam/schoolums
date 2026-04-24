@@ -38,6 +38,6 @@ services:
       - timetable-service
 
   frontend:
-    build: ./frontend
+    image: ghcr.io/jahnvipriyam/schoolums-frontend:main
     ports:
       - "8080:8080"
