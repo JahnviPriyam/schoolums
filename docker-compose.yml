@@ -13,6 +13,20 @@ services:
     volumes:
       - ./backend/student-service:/app
 
+  exam-service:
+    build: ./backend/exam-service
+    ports:
+      - "8002:8002"
+    volumes:
+      - ./backend/exam-service:/app
+
+  timetable-service:
+    build: ./backend/timetable-service
+    ports:
+      - "8003:8003"
+    volumes:
+      - ./backend/timetable-service:/app
+
   api-gateway:
     build: ./backend/api-gateway
     ports:
@@ -20,6 +34,8 @@ services:
     depends_on:
       - auth-service
       - student-service
+      - exam-service
+      - timetable-service
 
   frontend:
     build: ./frontend

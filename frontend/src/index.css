@@ -9,61 +9,57 @@
     --font-heading: 'Plus Jakarta Sans', sans-serif;
     --font-body: 'Nunito', sans-serif;
 
-    --background: 30 30% 97%;
-    --foreground: 235 40% 15%;
+    --background: 220 20% 97%;
+    --foreground: 220 50% 12%;
 
     --card: 0 0% 100%;
-    --card-foreground: 235 40% 15%;
+    --card-foreground: 220 50% 12%;
 
     --popover: 0 0% 100%;
-    --popover-foreground: 235 40% 15%;
+    --popover-foreground: 220 50% 12%;
 
-    --primary: 235 70% 35%;
+    --primary: 220 50% 25%; /* University Navy */
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 160 40% 90%;
-    --secondary-foreground: 160 40% 20%;
+    --secondary: 45 93% 47%; /* Academic Gold */
+    --secondary-foreground: 220 50% 12%;
 
-    --muted: 235 15% 93%;
-    --muted-foreground: 235 15% 45%;
+    --muted: 220 15% 93%;
+    --muted-foreground: 220 15% 45%;
 
-    --accent: 260 55% 75%;
-    --accent-foreground: 260 60% 20%;
+    --accent: 45 93% 55%; /* Lighter Gold */
+    --accent-foreground: 220 50% 12%;
 
     --destructive: 0 72% 55%;
     --destructive-foreground: 0 0% 100%;
 
-    --border: 235 20% 90%;
-    --input: 235 20% 90%;
-    --ring: 235 70% 35%;
+    --border: 220 20% 90%;
+    --input: 220 20% 90%;
+    --ring: 220 50% 25%;
 
-    --radius: 0.75rem;
+    --radius: 0.5rem; /* Sharper edges for academic look */
 
     /* Custom tokens */
-    --lavender: 260 55% 75%;
-    --peach: 20 80% 82%;
-    --mint: 160 40% 85%;
-    --indigo-glow: 235 70% 45%;
+    --gold: 45 93% 47%;
+    --navy: 220 50% 25%;
+    --indigo-glow: 220 50% 35%;
 
-    --gradient-primary: linear-gradient(135deg, hsl(235 70% 35%), hsl(260 55% 55%), hsl(20 70% 75%));
-    --gradient-lavender: linear-gradient(135deg, hsl(260 55% 75%), hsl(280 50% 80%));
-    --gradient-peach: linear-gradient(135deg, hsl(20 80% 82%), hsl(35 75% 80%));
-    --gradient-mint: linear-gradient(135deg, hsl(160 40% 85%), hsl(170 45% 80%));
-    --gradient-card: linear-gradient(135deg, hsl(235 70% 35% / 0.05), hsl(260 55% 75% / 0.08));
+    --gradient-primary: linear-gradient(135deg, hsl(220 50% 25%), hsl(220 40% 40%));
+    --gradient-gold: linear-gradient(135deg, hsl(45 93% 47%), hsl(45 100% 60%));
+    --gradient-card: linear-gradient(135deg, hsl(220 50% 25% / 0.03), hsl(45 93% 47% / 0.05));
 
-    --shadow-soft: 0 2px 12px hsl(235 70% 35% / 0.06);
-    --shadow-medium: 0 4px 24px hsl(235 70% 35% / 0.1);
-    --shadow-glow: 0 0 20px hsl(235 70% 45% / 0.15);
-    --shadow-peach-glow: 0 0 20px hsl(20 80% 82% / 0.3);
+    --shadow-soft: 0 2px 12px hsl(220 50% 25% / 0.05); /* Increased contrast for a11y */
+    --shadow-medium: 0 4px 24px hsl(220 50% 25% / 0.12);
+    --shadow-glow: 0 0 20px hsl(220 50% 35% / 0.2);
 
-    --sidebar-background: 235 50% 12%;
-    --sidebar-foreground: 235 10% 85%;
-    --sidebar-primary: 260 55% 75%;
-    --sidebar-primary-foreground: 0 0% 100%;
-    --sidebar-accent: 235 40% 20%;
-    --sidebar-accent-foreground: 235 10% 90%;
-    --sidebar-border: 235 30% 18%;
-    --sidebar-ring: 260 55% 75%;
+    --sidebar-background: 220 50% 15%; /* Deeper Navy */
+    --sidebar-foreground: 220 10% 85%;
+    --sidebar-primary: 45 93% 47%; /* Gold Accent */
+    --sidebar-primary-foreground: 220 50% 12%;
+    --sidebar-accent: 220 40% 22%;
+    --sidebar-accent-foreground: 45 93% 60%;
+    --sidebar-border: 220 30% 22%;
+    --sidebar-ring: 45 93% 47%;
   }
 
   .dark {
@@ -134,6 +130,7 @@
     @apply absolute inset-0 rounded-xl;
     padding: 1.5px;
     background: var(--gradient-primary);
+    pointer-events: none;
     -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
     -webkit-mask-composite: xor;
@@ -162,9 +159,10 @@
   /* Notebook texture */
   .notebook-bg {
     background-image:
-      linear-gradient(hsl(235 70% 35% / 0.03) 1px, transparent 1px),
-      linear-gradient(90deg, hsl(235 70% 35% / 0.03) 1px, transparent 1px);
+      linear-gradient(hsl(220 50% 25% / 0.06) 1px, transparent 1px),
+      linear-gradient(90deg, hsl(220 50% 25% / 0.06) 1px, transparent 1px);
     background-size: 24px 24px;
+    background-color: hsl(220 20% 98%);
   }
 
   /* Pencil underline animation */

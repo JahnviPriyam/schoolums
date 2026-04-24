@@ -1,185 +1,72 @@
-School UMS (Student Management System)
+# Schoolums - School Management System
 
-A full-stack Student Management System built using React, FastAPI, Docker, and Microservices Architecture.
-The system simulates a real-world school environment where teachers manage students and attendance, while students can view their own records.
+Schoolums is a modern, microservice-based school management platform. It features two distinct portals—one for **Teachers** and one for **Students**—to seamlessly handle attendance tracking, exam scoring, and timetable scheduling.
 
-🚀 Current Features (Implemented)
-🔐 Authentication (Auth Service)
+## 🚀 Architecture
+This system utilizes a highly scalable, decoupled microservices architecture powered by Docker. 
 
-User registration and login
+* **Frontend:** React + Vite + TailwindCSS (Located in `/frontend`)
+* **API Gateway:** FastAPI `localhost:9000` (Routes all frontend traffic)
+* **Auth Service:** FastAPI `localhost:8000` (Handles authentication, forced password resets, and user roles)
+* **Exam Service:** FastAPI `localhost:8001` (Manages exam schedules and student marks)
+* **Student Service:** FastAPI `localhost:8002` (Manages student rosters and attendance tracking)
+* **Timetable Service:** FastAPI `localhost:8003` (Manages class schedules and prevents overlaps)
 
-JWT-based authentication
+---
 
-Role-based access (Teacher / Student)
+## 🔐 Key Features
 
-👩‍🏫 Teacher Features
+### For Teachers:
+- **Dashboard & Analytics:** View active class counts, total students, and quick insights.
+- **Roster Management:** Create student accounts. The system will auto-generate temporary credentials for them.
+- **Marks & Grading:** Create exams and input/upsert grades for each student natively. View detailed grade reports per student.
+- **Attendance Tracking:** Mark comprehensive daily attendance logs.
+- **Timetables:** Assign subjects to specific timeslots with built-in conflict prevention.
 
-Add students
+### For Students:
+- **Secure Onboarding:** Students must change their teacher-assigned temporary password upon their first login. Passwords expire every 30 days to enforce rotation security.
+- **Performance Access:** Check all recorded exam marks and calculated percentages.
+- **Schedules:** View daily class timetables and live attendance numbers.
 
-View students
+---
 
-Delete students
+## 🛠️ How to Run Locally
 
-Mark attendance (present/absent)
+You must have **Docker** and **Docker Compose** installed on your machine.
 
-View attendance records
+### 1. Build and Start the Containers
+Navigate into the root directory of the project and spin up all microservices and the frontend at once:
 
-Dashboard analytics:
+```bash
+docker compose up --build
+```
 
-Total students
+### 2. Access the Application
+Once the containers are successfully running, the services will be available in your browser:
 
-Present today
+* **Frontend Dashboard:** [http://localhost:8080](http://localhost:8080)
+* **API Gateway:** [http://localhost:9000](http://localhost:9000)
 
-Absent today
+### 3. Creating the Initial Teacher
+If you are starting with a fresh database, you must manually create your first teacher account before accessing the portal. You can do this by sending a `POST` request to the API Gateway:
 
-Attendance percentage
+```bash
+curl -X 'POST' \
+  'http://localhost:9000/auth/register' \
+  -H 'Content-Type: application/json' \
+  -d '{
+  "email": "teacher@school.com",
+  "password": "password123",
+  "role": "teacher"
+}'
+```
 
-🎓 Student Features
+Log in with `teacher@school.com` and `password123` to begin creating students!
 
-Secure login
+---
 
-View personal attendance
-
-Basic dashboard overview
-
-📊 Attendance System
-
-Date-wise attendance marking
-
-Prevents duplicate entries
-
-Stores attendance history
-
-Role-restricted access
-
-🧱 Architecture
-
-Microservices-based backend:
-
-Auth Service
-
-Student Service
-
-API Gateway
-
-API Gateway routes requests to services
-
-Services communicate via HTTP
-
-🛠 Tech Stack
-Frontend
-
-React + TypeScript
-
-Vite
-
-Tailwind CSS
-
-Shadcn UI
-
-Backend
-
-FastAPI
-
-SQLModel (ORM)
-
-SQLite
-
-Infrastructure
-
-Docker & Docker Compose
-
-⚙️ Key Features
-
-JWT Authentication
-
-Role-Based Access Control
-
-API Gateway Routing
-
-Dockerized Multi-Service Setup
-
-Clean UI with modern components
-
-🧪 How to Run
-docker compose build
-docker compose up
-🌐 Access
-
-Frontend:
-http://localhost:8080
-
-API Gateway:
-http://127.0.0.1:9000/docs
-
-Auth Service:
-http://127.0.0.1:8000/docs
-
-📁 Project Structure
-frontend/
-auth-service/
-student-service/
-api-gateway/
-docker-compose.yml
-📌 Current Status
-
-✔ Authentication system complete
-✔ Student management complete
-✔ Attendance system complete
-✔ Teacher dashboard complete
-✔ Student dashboard basic version complete
-✔ Microservices architecture implemented
-✔ Docker setup working
-
-🔮 Planned Features (In Progress)
-
-The following modules are planned to enhance the system:
-
-📘 Exams Module
-
-Add and manage student marks
-
-View marks (teacher & student)
-
-Subject-wise performance tracking
-
-🗓 Timetable Module
-
-Create class schedules
-
-View timetable (teacher & student)
-
-Manage daily routines
-
-📈 Advanced Student Dashboard
-
-Total classes attended
-
-Present/absent breakdown
-
-Attendance percentage insights
-
-🤖 Future Enhancements
-
-Academic risk prediction system
-
-Chatbot support
-
-Cloud deployment (AWS)
-
-Improved UI/UX
-
-💡 Design Decisions
-
-Used microservices to separate concerns (auth vs student logic)
-
-Implemented API Gateway for scalability
-
-Used JWT for stateless authentication
-
-Chose Docker for easy deployment and reproducibility
-
-👩‍💻 Author
-
-Jahnvi Priyam
-B.Tech CSE (2027)
+## 📁 Tech Stack Overview
+- **UI/Visuals:** Framer Motion, Radix UI Primitives, Lucide Icons, Glassmorphism CSS.
+- **Frontend Logic:** React Router DOM (v6), React Hook Form, TanStack Query.
+- **Backend:** Python + FastAPI apps, SQLModel (SQLAlchemy under the hood).
+- **Security:** Standard JWT `Bearer` token implementation, Passlib bcrypt hashing.

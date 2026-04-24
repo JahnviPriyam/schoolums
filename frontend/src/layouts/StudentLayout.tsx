@@ -1,3 +1,4 @@
+import SchoolDoodles from "@/components/SchoolDoodles";
 import { useState } from "react";
 import { Outlet, useLocation, useNavigate } from "react-router-dom";
 import { motion, AnimatePresence } from "framer-motion";
@@ -28,93 +29,107 @@ const StudentLayout = () => {
   const navigate = useNavigate();
 
   return (
-    <div className="flex min-h-screen w-full bg-background">
-      {/* Sidebar - lighter tone for students */}
-      <motion.aside
-        className="flex flex-col border-r border-border z-20 relative"
-        style={{ background: "hsl(235 30% 16%)" }}
-        animate={{ width: collapsed ? 72 : 256 }}
-        transition={{ duration: 0.25, ease: "easeInOut" }}
-      >
-        {/* Logo */}
-        <div className="flex items-center gap-3 px-5 py-6 border-b border-border/10">
-          <div className="flex-shrink-0 w-9 h-9 rounded-2xl bg-peach/20 flex items-center justify-center">
-            <BookOpen className="h-5 w-5 text-peach" />
-          </div>
-          <AnimatePresence>
-            {!collapsed && (
-              <motion.span
-                className="font-heading font-bold text-lg text-white whitespace-nowrap"
-                initial={{ opacity: 0, width: 0 }}
-                animate={{ opacity: 1, width: "auto" }}
-                exit={{ opacity: 0, width: 0 }}
-                transition={{ duration: 0.2 }}
-              >
-                SchoolDesk
-              </motion.span>
-            )}
-          </AnimatePresence>
-        </div>
+    <>
+      {/* 🌈 DOODLES BACKGROUND */}
+      <SchoolDoodles />
 
-        {/* Nav */}
-        <nav className="flex-1 py-4 px-3 space-y-1">
-          {navItems.map((item) => {
-            const active = location.pathname === item.path;
-            return (
-              <button
-                key={item.path}
-                onClick={() => navigate(item.path)}
-                className={cn(
-                  "w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm font-medium transition-all duration-200",
-                  active
-                    ? "sidebar-active text-white bg-white/10"
-                    : "text-white/60 hover:text-white hover:bg-white/5"
-                )}
-              >
-                <item.icon className="h-5 w-5 flex-shrink-0" />
-                <AnimatePresence>
-                  {!collapsed && (
-                    <motion.span
-                      initial={{ opacity: 0, width: 0 }}
-                      animate={{ opacity: 1, width: "auto" }}
-                      exit={{ opacity: 0, width: 0 }}
-                      transition={{ duration: 0.15 }}
-                      className="whitespace-nowrap"
-                    >
-                      {item.label}
-                    </motion.span>
-                  )}
-                </AnimatePresence>
-              </button>
-            );
-          })}
-        </nav>
+      <div className="relative z-10 flex min-h-screen w-full bg-transparent">
 
-        {/* Footer */}
-        <div className="px-3 py-4 border-t border-white/10 space-y-1">
-          <button
-            onClick={() => navigate("/")}
-            className="w-full flex items-center gap-3 px-3 py-2.5 rounded-2xl text-sm text-white/60 hover:text-white hover:bg-white/5 transition-all duration-200"
-          >
-            <LogOut className="h-5 w-5 flex-shrink-0" />
-            {!collapsed && <span>Sign Out</span>}
-          </button>
-        </div>
-
-        {/* Collapse toggle */}
-        <button
-          onClick={() => setCollapsed(!collapsed)}
-          className="absolute -right-3 top-20 w-6 h-6 rounded-full bg-card border border-border flex items-center justify-center shadow-sm hover:bg-muted transition-colors z-30"
+        {/* ================= SIDEBAR ================= */}
+        <motion.aside
+          className="flex flex-col bg-[#1f2235]/90 backdrop-blur-xl text-white border-r border-white/10 shadow-xl z-20"
+          animate={{ width: collapsed ? 72 : 260 }}
+          transition={{ duration: 0.3, ease: "easeInOut" }}
         >
-          {collapsed ? <ChevronRight className="h-3 w-3" /> : <ChevronLeft className="h-3 w-3" />}
-        </button>
-      </motion.aside>
+          {/* LOGO */}
+          <div className="flex items-center gap-3 px-5 py-6 border-b border-white/10">
+            <div className="w-9 h-9 rounded-xl bg-gradient-to-br from-pink-400 to-orange-400 flex items-center justify-center shadow">
+              <BookOpen className="h-5 w-5 text-white" />
+            </div>
 
-      {/* Main content */}
-      <main className="flex-1 flex flex-col overflow-hidden">
-        <Outlet />
-      </main>
-    </div>
+            <AnimatePresence>
+              {!collapsed && (
+                <motion.span
+                  className="font-bold text-lg whitespace-nowrap"
+                  initial={{ opacity: 0, x: -10 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  exit={{ opacity: 0, x: -10 }}
+                >
+                  StudentDesk
+                </motion.span>
+              )}
+            </AnimatePresence>
+          </div>
+
+          {/* NAV */}
+          <nav className="flex-1 py-4 px-3 space-y-2">
+            {navItems.map((item) => {
+              const active = location.pathname === item.path;
+
+              return (
+                <button
+                  key={item.path}
+                  onClick={() => navigate(item.path)}
+                  className={cn(
+                    "w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm font-medium transition-all duration-300 group relative overflow-hidden",
+                    active
+                      ? "bg-gradient-to-r from-pink-400 to-orange-400 text-white shadow-lg"
+                      : "text-white/70 hover:bg-white/10 hover:text-white"
+                  )}
+                >
+                  {/* Glow */}
+                  <div className="absolute inset-0 opacity-0 group-hover:opacity-20 bg-gradient-to-r from-pink-400 to-orange-400 transition" />
+
+                  <item.icon className="h-5 w-5 z-10" />
+
+                  <AnimatePresence>
+                    {!collapsed && (
+                      <motion.span
+                        initial={{ opacity: 0, x: -5 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        exit={{ opacity: 0, x: -5 }}
+                        className="whitespace-nowrap z-10"
+                      >
+                        {item.label}
+                      </motion.span>
+                    )}
+                  </AnimatePresence>
+                </button>
+              );
+            })}
+          </nav>
+
+          {/* FOOTER */}
+          <div className="px-3 py-4 border-t border-white/10">
+            <button
+              onClick={() => navigate("/")}
+              className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-sm text-white/70 hover:bg-red-100 hover:text-red-500 transition-all duration-200"
+            >
+              <LogOut className="h-5 w-5" />
+              {!collapsed && <span>Sign Out</span>}
+            </button>
+          </div>
+
+          {/* TOGGLE */}
+          <button
+            onClick={() => setCollapsed(!collapsed)}
+            className="absolute -right-3 top-24 w-7 h-7 rounded-full bg-white shadow-md border flex items-center justify-center hover:scale-110 transition"
+          >
+            {collapsed ? (
+              <ChevronRight className="h-3 w-3" />
+            ) : (
+              <ChevronLeft className="h-3 w-3" />
+            )}
+          </button>
+        </motion.aside>
+
+        {/* ================= MAIN ================= */}
+        <main className="flex-1 p-6 overflow-y-auto">
+          <Outlet />
+        </main>
+
+      </div>
+    </>
   );
 };
 
