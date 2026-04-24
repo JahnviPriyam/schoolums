@@ -39,7 +39,7 @@ const TeacherOverview = () => {
         if (!token) return;
 
         const res = await fetch(
-          "http://127.0.0.1:9000/attendance/today/stats",
+          `${import.meta.env.VITE_API_URL || "http://localhost:9000"}/attendance/today/stats`,
           {
             headers: { Authorization: `Bearer ${token}` },
           }
@@ -65,10 +65,10 @@ const TeacherOverview = () => {
         if (!token) return;
 
         const [studentsRes, attendanceRes] = await Promise.all([
-          fetch("http://127.0.0.1:9000/students", {
+          fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/students`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
-          fetch("http://127.0.0.1:9000/attendance", {
+          fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/attendance`, {
             headers: { Authorization: `Bearer ${token}` },
           }),
         ]);

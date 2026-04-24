@@ -24,7 +24,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
-const API_GateWay = "http://localhost:9000";
+const API_GateWay = import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || "http://localhost:9000"}`;
 
 interface Exam {
   id: string;

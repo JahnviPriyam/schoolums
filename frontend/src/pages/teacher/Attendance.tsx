@@ -36,7 +36,7 @@ export default function TeacherAttendance() {
         const token = localStorage.getItem("token");
         if (!token) return;
 
-        const res = await fetch("http://127.0.0.1:9000/students", {
+        const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/students`, {
           headers: { Authorization: `Bearer ${token}` },
         });
 
@@ -89,7 +89,7 @@ export default function TeacherAttendance() {
     try {
       await Promise.all(
         students.map((s) =>
-          fetch("http://127.0.0.1:9000/attendance", {
+          fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/attendance`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",

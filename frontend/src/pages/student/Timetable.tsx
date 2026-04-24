@@ -4,7 +4,7 @@ import { PageWrapper } from "@/components/PageWrapper";
 import { EmptyState } from "@/components/EmptyState";
 import { getAuthHeaders } from "@/api";
 
-const API_GateWay = "http://localhost:9000";
+const API_GateWay = import.meta.env.VITE_API_URL || `${import.meta.env.VITE_API_URL || "http://localhost:9000"}`;
 const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
 
 interface TimetableEntry {

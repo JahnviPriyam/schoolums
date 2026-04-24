@@ -49,7 +49,7 @@ const TeacherStudents = () => {
     setStudentMarks([]); // reset
     try {
       const token = localStorage.getItem("token");
-      const res = await fetch(`http://127.0.0.1:9000/marks/student/${student.user_id}`, {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/marks/student/${student.user_id}`, {
         headers: { Authorization: `Bearer ${token}` }
       });
       if (res.ok) {
@@ -66,7 +66,7 @@ const TeacherStudents = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      const res = await fetch("http://127.0.0.1:9000/students", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/students`, {
         headers: {
           Authorization: `Bearer ${token}`,
         },
@@ -99,7 +99,7 @@ const TeacherStudents = () => {
 
       console.log("Sending:", form);
 
-      const res = await fetch("http://127.0.0.1:9000/students", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/students`, {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -142,7 +142,7 @@ const TeacherStudents = () => {
       const token = localStorage.getItem("token");
       if (!token) return;
 
-      await fetch(`http://127.0.0.1:9000/students/${id}`, {
+      await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/students/${id}`, {
         method: "DELETE",
         headers: {
           Authorization: `Bearer ${token}`,

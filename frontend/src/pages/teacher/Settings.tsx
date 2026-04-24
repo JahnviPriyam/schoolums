@@ -40,7 +40,7 @@ const TeacherSettings = () => {
       if (!token) return null;
       const payload = JSON.parse(atob(token.split(".")[1]));
       const userEmail = payload.email || "teacher@school.com";
-      const userRes = await fetch(`http://127.0.0.1:9000/auth/users/by-email?email=${userEmail}`);
+      const userRes = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/auth/users/by-email?email=${userEmail}`);
       if (!userRes.ok) throw new Error("Failed to fetch profile");
       const userData = await userRes.json();
       
@@ -60,7 +60,7 @@ const TeacherSettings = () => {
   const handleSaveProfile = async () => {
     setSavingProfile(true);
     try {
-      const res = await fetch("http://127.0.0.1:9000/auth/users/profile", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/auth/users/profile`, {
         method: "PUT",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
@@ -90,7 +90,7 @@ const TeacherSettings = () => {
 
     setSavingPassword(true);
     try {
-      const res = await fetch("http://127.0.0.1:9000/auth/change-password", {
+      const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/auth/change-password`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({

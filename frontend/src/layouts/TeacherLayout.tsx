@@ -41,7 +41,7 @@ const fetchProfile = async () => {
   if (!token) return null;
   const payload = JSON.parse(atob(token.split(".")[1]));
   const userEmail = payload.email;
-  const res = await fetch(`http://127.0.0.1:9000/auth/users/by-email?email=${userEmail}`);
+  const res = await fetch(`${import.meta.env.VITE_API_URL || "http://localhost:9000"}/auth/users/by-email?email=${userEmail}`);
   if (!res.ok) throw new Error("Failed to fetch profile");
   return res.json();
 };
