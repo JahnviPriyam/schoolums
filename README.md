@@ -1,193 +1,112 @@
 <div align="center">
 
-# 🎓 SchoolDesk MS (School Management System)
+# 🎓 SchoolDesk MS (Management System)
 
 [![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://reactjs.org/)
 [![Vite](https://img.shields.io/badge/Vite-B73BFE?style=for-the-badge&logo=vite&logoColor=FFD62E)](https://vitejs.dev/)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 [![FastAPI](https://img.shields.io/badge/FastAPI-005571?style=for-the-badge&logo=fastapi)](https://fastapi.tiangolo.com/)
 [![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?style=for-the-badge&logo=postgresql&logoColor=white)](https://www.postgresql.org/)
 
-A full-stack School Management System built using React, FastAPI, Docker, and a microservices architecture. The platform provides separate portals for teachers and students to manage attendance, examinations, timetables, and academic records through secure role-based authentication.
+**A premium, microservices-based, highly scalable Student & Teacher Management System.**
+Features dynamic role-based dashboards, integrated AI assistant, glassmorphism UI, and bulletproof JWT authentication.
+
+---
 
 </div>
 
----
+## 🌟 Key Features
 
-# Features
+### 👩‍🏫 Teacher Portal
+- **Intelligent Dashboard:** Real-time analytics, active class counts, and quick insights.
+- **Roster & Student Management:** One-click student onboarding with auto-generated secure credentials.
+- **Grades & Assessment:** Robust marks upserting, grade reports, and native exam tracking.
+- **Attendance Ledger:** Comprehensive daily attendance logging with visual charts.
+- **Conflict-Free Timetables:** Assign subjects to timeslots with intelligent overlap prevention.
+- **AI Chatbot Integration:** Built-in floating AI assistant to help teachers navigate the platform.
+- **Global Settings:** Multilingual support (English & Hindi) stored securely via TanStack Query and localized profiles.
 
-## Teacher Portal
-
-- Teacher dashboard with academic overview
-- Student onboarding and management
-- Attendance management
-- Examination and marks management
-- Timetable creation with conflict validation
-- AI assistant for quick navigation
-- Profile and account settings
-
-## Student Portal
-
-- Secure login with JWT authentication
-- Password reset on first login
-- View attendance records
-- View examination marks and performance
-- Access class timetable
-- View notes and academic resources
+### 👨‍🎓 Student Portal
+- **Secure Onboarding:** Mandatory 30-day password rotation and forced reset on initial login.
+- **Academic Performance:** Direct access to recorded marks, historical exams, and calculated percentages.
+- **Live Schedules:** Daily class timetables with real-time updates.
+- **Notes & Resources:** Dedicated academic tracking per student.
 
 ---
 
-# Tech Stack
+## 🏗️ Microservices Architecture
 
-## Frontend
-
-- React
-- TypeScript
-- Vite
-- Tailwind CSS
-- Framer Motion
-- TanStack Query
-
-## Backend
-
-- FastAPI
-- Python
-- SQLModel
-- REST APIs
-- JWT Authentication
-
-## DevOps & Cloud
-
-- Docker
-- Docker Compose
-- GitHub Actions
-- AWS EC2
-
----
-
-# System Architecture
-
-The project follows a microservices architecture where different services handle authentication, student management, examinations, and timetable management independently. All client requests are routed through an API Gateway.
+SchoolDesk is built using a highly decoupled, service-oriented architecture ensuring that no single point of failure can bring down the entire school ecosystem. 
 
 ```mermaid
 graph TD
-    Client([React Frontend]) --> Gateway[API Gateway :9000]
-
-    Gateway --> Auth[Authentication Service]
-    Gateway --> Student[Student Service]
-    Gateway --> Exam[Exam Service]
-    Gateway --> Time[Timetable Service]
-
-    Auth --> DB1[(Auth DB)]
-    Student --> DB2[(Student DB)]
-    Exam --> DB3[(Exam DB)]
-    Time --> DB4[(Timetable DB)]
+    Client([Frontend UI - React/Vite]) --> Gateway[API Gateway :9000]
+    
+    Gateway --> Auth[Auth Service :8000]
+    Gateway --> Exam[Exam Service :8001]
+    Gateway --> Student[Student Service :8002]
+    Gateway --> Time[Timetable Service :8003]
+    
+    Auth --> DB1[(PostgreSQL DB)]
+    Exam --> DB2[(SQLite DB)]
+    Student --> DB3[(SQLite DB)]
+    Time --> DB4[(SQLite DB)]
 ```
 
----
-
-# Services
-
-| Service | Responsibility |
-|----------|----------------|
-| Frontend | User Interface |
-| API Gateway | Routes incoming requests |
-| Authentication Service | Login, JWT authentication, Role-Based Access |
-| Student Service | Student records and attendance |
-| Examination Service | Marks and examination management |
-| Timetable Service | Timetable scheduling |
+| Service | Technology | Port | Responsibility |
+| :--- | :--- | :--- | :--- |
+| **Frontend** | React + Tailwind + Framer | `8080` | Client-facing dynamic application. |
+| **API Gateway** | FastAPI + HTTPX | `9000` | Routes traffic, handles CORS, orchestrates microservices. |
+| **Auth Service** | FastAPI + Postgres | `8000` | JWT issuance, RBAC, forced password resets, user profile avatars. |
+| **Exam Service** | FastAPI + SQLite | `8001` | Manages exams, tracks marks, calculates percentages. |
+| **Student Service**| FastAPI + SQLite | `8002` | Roster management and attendance tracking. |
+| **Time Service** | FastAPI + SQLite | `8003` | Class scheduling and timetable overlap prevention. |
 
 ---
 
-# Project Highlights
+## 🚀 Getting Started
 
-- Full-stack application using React and FastAPI
-- Role-Based Access Control (Teacher & Student)
-- JWT Authentication
-- REST API-based communication
-- Microservices architecture
-- Dockerized deployment
-- Automated frontend builds using GitHub Actions
-- AWS EC2 deployment
-- Responsive user interface
+You only need **Docker** and **Docker Compose** installed to run the entire cluster locally. The system is configured to instantly provision a PostgreSQL database alongside the microservices.
 
----
+### 1. Configure the Environment
+Create a `.env` file in the root directory for your database credentials (ensure this is ignored in `.gitignore`):
+```env
+POSTGRES_USER=schoolums_admin
+POSTGRES_PASSWORD=supersecurepassword123
+POSTGRES_DB=schoolums_db
+DATABASE_URL=postgresql://schoolums_admin:supersecurepassword123@db:5432/schoolums_db
+```
 
-# Running the Project
-
-### Clone the repository
-
+### 2. Build and Spin Up the Cluster
+Run the following command in the root directory to build the images and start the orchestrated network:
 ```bash
-git clone <repository-url>
-cd SchoolDesk-MS
+docker compose up -d --build
 ```
 
-### Start the application
+### 3. Access the Application
+- **Frontend App:** [http://localhost:8080](http://localhost:8080)
+- **API Gateway Docs:** [http://localhost:9000/docs](http://localhost:9000/docs)
 
-```bash
-docker compose up --build
-```
-
----
-
-# Access the Application
-
-Frontend
-
-```
-http://localhost:8080
-```
-
-API Documentation
-
-```
-http://localhost:9000/docs
-```
-
----
-
-# Demo Credentials
+### 4. Exploring the Demo
+The application comes with built-in demo credentials for recruiters and visitors to quickly explore the UI.
+On the login page at [http://localhost:8080](http://localhost:8080), you will find a **"Demo Access"** section. 
+Clicking **Explore as Student** or **Explore as Teacher** will automatically fill the form with the following credentials and sign you in:
 
 | Role | Email | Password |
-|------|-------|----------|
-| Teacher | teacher@school.com | password123 |
-| Student | jahnvi@school.com | password123 |
+| :--- | :--- | :--- |
+| Teacher | `teacher@demo.com` | `teacher123` |
+| Student | `student@demo.com` | `student123` |
 
-Students are required to change their password after their first login.
-
----
-
-# Security Features
-
-- JWT Authentication
-- Role-Based Access Control
-- Password hashing using bcrypt
-- Password reset on first login
-- Protected API endpoints
+*(Note: The demo accounts are seeded automatically if the `ENABLE_DEMO_USERS=true` environment variable is present in the `docker-compose.yml`)*
 
 ---
 
-# Future Enhancements
+## 🎨 Design & UI Philosophy
+Built to feel like a modern SaaS rather than a legacy academic tool. We utilize **Radix UI Primitives** for unstyled accessibility, heavily customized with **Tailwind CSS** to create beautiful glassmorphic cards, smooth **Framer Motion** transitions, and dynamic SVGs from **DiceBear**.
 
-- Mobile application using React Native
-- Push notifications for attendance and examination updates
-- Parent portal
-- Online assignment submission
-- Performance analytics dashboard
-
----
-
-# Project Structure
-
-```
-SchoolDesk-MS
-│
-├── frontend
-├── api-gateway
-├── auth-service
-├── student-service
-├── exam-service
-├── timetable-service
-├── docker-compose.yml
-└── README.md
-```
+## 🛡️ Security Posture
+- **Stateless Authentication:** Fully JWT-based.
+- **Role-Based Access Control (RBAC):** Backend dependency injection to isolate endpoints (`Depends(teacher_required)` vs `Depends(student_required)`).
+- **Password Policies:** Enforced rotation via `requires_password_change` DB flags and salted bcrypt hashing via Passlib.
+- **Secret Management:** Credentials managed securely through `.env` files that remain outside of version control.

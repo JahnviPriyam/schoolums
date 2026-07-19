@@ -189,6 +189,44 @@ const Login = () => {
               {loading ? "Signing in..." : "Sign In"}
             </Button>
           </form>
+
+          {/* DEMO ACCESS SECTION */}
+          <div className="mt-8 pt-6 border-t border-border/50">
+            <h3 className="text-sm font-semibold text-center mb-2">Demo Access</h3>
+            <p className="text-xs text-muted-foreground text-center mb-4 leading-relaxed">
+              Want to explore the platform? Use one of the demo accounts below. No registration required.
+            </p>
+            <div className="space-y-3">
+              <Button 
+                variant="outline" 
+                className="w-full justify-between h-auto py-3 px-4 bg-primary/5 hover:bg-primary/10 border-primary/20"
+                onClick={() => {
+                  setEmail("student@demo.com");
+                  setPassword("student123");
+                }}
+              >
+                <div className="flex flex-col items-start">
+                  <span className="font-medium text-sm">Explore as Student</span>
+                  <span className="text-xs text-muted-foreground">student@demo.com / student123</span>
+                </div>
+                <LogIn className="h-4 w-4 opacity-50" />
+              </Button>
+              <Button 
+                variant="outline" 
+                className="w-full justify-between h-auto py-3 px-4 bg-primary/5 hover:bg-primary/10 border-primary/20"
+                onClick={() => {
+                  setEmail("teacher@demo.com");
+                  setPassword("teacher123");
+                }}
+              >
+                <div className="flex flex-col items-start">
+                  <span className="font-medium text-sm">Explore as Teacher</span>
+                  <span className="text-xs text-muted-foreground">teacher@demo.com / teacher123</span>
+                </div>
+                <LogIn className="h-4 w-4 opacity-50" />
+              </Button>
+            </div>
+          </div>
         </div>
       </motion.div>
     </div>

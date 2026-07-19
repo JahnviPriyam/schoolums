@@ -1,8 +1,22 @@
 services:
+  db:
+    image: postgres:15-alpine
+    restart: always
+    env_file: .env
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
   auth-service:
     build: ./backend/auth-service
     ports:
       - "8000:8000"
+    environment:
+      - ENABLE_DEMO_USERS=true
+    env_file: .env
+    depends_on:
+      - db
     volumes:
       - ./backend/auth-service:/app
 
@@ -38,6 +52,9 @@ services:
       - timetable-service
 
   frontend:
-    image: ghcr.io/jahnvipriyam/schoolums-frontend:main
+    build: ./frontend
     ports:
       - "8080:8080"
+
+volumes:
+  postgres_data:
